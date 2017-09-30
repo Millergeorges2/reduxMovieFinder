@@ -1,3 +1,5 @@
+import { types } from './MovieSearchAction';
+
 const initialState = {
     movie: ''
 };
@@ -5,12 +7,13 @@ const initialState = {
 export default function MovieSearchReducer(state = initialState, action) {
     const { type, payload } = action;
 
-    switch(type){
-        case 'GET_MOVIE': 
-            return{
+    switch (type) {
+        case "GET_MOVIE": 
+            return {
                 ...state,
                 movie: payload.movie
             };
+        
         default: {
             return state;
         }
