@@ -1,7 +1,11 @@
 import { types } from './MovieSearchAction';
 
 const initialState = {
-    movie: ''
+    list: [],
+    movie: '',
+    img: '',
+    yearRelease: '',
+    title: '',
 };
 
 export default function MovieSearchReducer(state = initialState, action) {
@@ -13,6 +17,10 @@ export default function MovieSearchReducer(state = initialState, action) {
                 ...state,
                 movie: payload.movie
             };
+            case "GET_LIST_FULFILLED":
+            return{
+                list: payload.Search,
+            }
         
         default: {
             return state;
