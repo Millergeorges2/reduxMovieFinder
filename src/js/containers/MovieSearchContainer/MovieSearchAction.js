@@ -20,9 +20,6 @@ export function getMoreInfo(id) {
     return{
         type: 'GET_MORE_INFO',
         payload: axios.get('http://www.omdbapi.com/?i=' + id + '&apikey=8730e0e' )
-        .then(response =>{ 
-            response.data
-            console.log(response.data)
-        }).catch(err => console.log(err))
+        .then(response => response.data).catch(err => console.log(err))
     }
 }

@@ -1,7 +1,16 @@
 const initialState = {
     list: [],
     movie: '',
-    id: ''
+    id: '',
+    title: '',
+    releaseDate: '',
+    runTime: '',
+    poster: '',
+    genre: '',
+    plot: '',
+    awards: '',
+    metaScore: '',
+    rating: ''
 };
 
 export default function MovieSearchReducer(state = initialState, action) {
@@ -23,8 +32,16 @@ export default function MovieSearchReducer(state = initialState, action) {
         case "GET_MORE_INFO_FULFILLED":
                     return {
                         ...state,
-                        id: payload,
-                        
+                        id: payload.imdbID,
+                        title: payload.Title,
+                        releaseDate: payload.Released,
+                        runTime: payload.Runtime,
+                        poster: payload.Poster,
+                        genre: payload.Genre,
+                        plot: payload.Plot,
+                        awards: payload.Awards,
+                        metaScore: payload.Metascore,
+                        rating: payload.imdbRating
                     };
 
         default: {
