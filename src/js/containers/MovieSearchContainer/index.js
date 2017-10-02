@@ -7,10 +7,7 @@ function mapStoreToProps(store) {
     return {
         movie: store.movie.movie,
         list: store.movie.list,
-        img: store.movie.img,
-        yearRelease: store.movie.yearRelease,
-        title: store.movie.title,
-
+        id: store.movie.id
     }
 }
 

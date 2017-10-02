@@ -1,27 +1,32 @@
-import { types } from './MovieSearchAction';
-
 const initialState = {
     list: [],
     movie: '',
-    img: '',
-    yearRelease: '',
-    title: '',
+    id: ''
 };
 
 export default function MovieSearchReducer(state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
-        case "GET_MOVIE": 
+        case "GET_MOVIE":
             return {
                 ...state,
                 movie: payload.movie
             };
-            case "GET_LIST_FULFILLED":
-            return{
+
+        case "GET_LIST_FULFILLED":
+            return {
+                ...state,
                 list: payload.Search,
-            }
-        
+            };
+
+        case "GET_MORE_INFO_FULFILLED":
+                    return {
+                        ...state,
+                        id: payload,
+                        
+                    };
+
         default: {
             return state;
         }

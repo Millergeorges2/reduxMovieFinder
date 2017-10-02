@@ -4,9 +4,17 @@ import { getMovie } from './MovieSearchAction'
 
 import { getList } from './MovieSearchAction'
 
+import { getMoreInfo } from './MovieSearchAction'
+
 class SingleMovie extends React.Component {
   constructor(props) {
     super(props);
+
+    this.handleMoreInfo = this.handleMoreInfo.bind(this);
+  }
+
+  handleMoreInfo(id) {
+    this.props.handleMoreInfo(id);
   }
   render() {
     const { lis } = this.props;
@@ -15,9 +23,9 @@ class SingleMovie extends React.Component {
         <h2 style={{ textAlign: 'center' }}>{lis.Title}</h2>
         <p style={{ textAlign: 'center' }} className="lead">{lis.Year}</p>
         <section style={{ display: 'inline-block' }}>
-          <img style={{ zIndex: '2', float: 'left', marginLeft: 70 + 'px' }} src={lis.Poster} alt="" />
+          <img style={{ zIndex: '2', float: 'left', marginLeft: 10 + 'px' }} src={lis.Poster} alt="" />
         </section>
-        <button style={{ position: "absolute", right: 30 + 'px', bottom: 50 + 'px' }} className="btn btn-primary">More Information</button>
+        <a href={"/#/movie/" + lis.imdbID} ><button onClick={() => this.handleMoreInfo(lis.imdbID)} style={{ position: "absolute", right: 30 + 'px', bottom: 50 + 'px' }} className="btn btn-primary">More Information</button></a>
       </div>
     )
   }
@@ -27,8 +35,15 @@ class MovieSearchContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    this.handleMoreInfo = this.handleMoreInfo.bind(this);
     this.handleMovieInput = this.handleMovieInput.bind(this);
     this.handleMovieSearch = this.handleMovieSearch.bind(this);
+    this.handleMoreInfo = this.handleMoreInfo.bind(this);
+  }
+
+  handleMoreInfo(event) {
+    const { dispatch, movie } = this.props;
+    dispatch(getMoreInfo(movie));
   }
 
   handleMovieSearch(event) {
@@ -40,6 +55,11 @@ class MovieSearchContainer extends React.Component {
     const { dispatch } = this.props;
     const { value } = event.target;
     dispatch(getMovie(value));
+  }
+
+  handleMoreInfo(id) {
+    const { dispatch } = this.props;
+    dispatch(getMoreInfo(id))
   }
 
   render() {
@@ -54,11 +74,14 @@ class MovieSearchContainer extends React.Component {
         </div>
         {list.map((lis, index) => {
           return (
-            <SingleMovie 
-            key={index} 
-              lis= { lis }
+            <SingleMovie
+              key={index}
+              lis={lis}
+              handleMoreInfo={this.handleMoreInfo}
+
             />
-        )})}
+          )
+        })}
       </div>
     )
   }
